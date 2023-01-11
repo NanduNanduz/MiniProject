@@ -32,7 +32,7 @@ let nocoupon
 
 const loginLoad = async (req, res) => {
     try {
-        res.render('login' ,{count: 0 })
+        res.render('login' ,{isLoggedin,count: 0 })
 
     } catch (error) {
         console.log("error")
@@ -234,9 +234,9 @@ const loadProductDetails = async (req, res) => {
 
             const userData = await User.findById({ _id: userSession.userId })
 
-            res.render('productDetails', { product: productData, count: userData.cart.totalqty, })
+            res.render('productDetails', { isLoggedin,product: productData, count: userData.cart.totalqty, })
         } else {
-            res.render('productDetails', { product: productData, count: 0 })
+            res.render('productDetails', {isLoggedin, product: productData, count: 0 })
 
         }
     } catch (error) {
@@ -631,9 +631,9 @@ const storeOrder = async (req, res) => {
                 if (req.body.payment == 'Cash-on-Dilevery') {
                     res.redirect('/order-success')
                 } else if (req.body.payment == 'RazorPay') {
-                    res.render('razorpay', { userId: userSession.userId, total: completeUser.cart.totalPrice , count: userData.cart.totalqty,})
+                    res.render('razorpay', { isLoggedin,userId: userSession.userId, total: completeUser.cart.totalPrice , count: userData.cart.totalqty,})
                 } else if (req.body.payment == 'PayPal') {
-                    res.render('paypal', { userId: userSession.userId, total: completeUser.cart.totalPrice })
+                    res.render('paypal', { isLoggedin,userId: userSession.userId, total: completeUser.cart.totalPrice })
                 } else {
                     res.redirect('/catalog')
                 }
@@ -677,7 +677,7 @@ const loadSuccess = async (req, res) => {
         }
         userSession.couponTotal = 0
 
-        res.render('orderSuccess',{count:0})
+        res.render('orderSuccess',{isLoggedin,count:0})
     } catch (error) {
         console.log(error.message);
     }

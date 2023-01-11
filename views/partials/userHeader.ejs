@@ -166,23 +166,16 @@
 						<li onclick="">
 							<a href="/shop">Shop</a>
 						</li>
-						<li>
-							<a href="/blog">Blog</a>
-						</li>
-
-						<li>
-							<a href="about">About</a>
-						</li>
-
-						<li>
-							<a href="contact">Contact</a>
-						</li>
-						<li>
-							<a href="login">Login</a>
-						</li>
-						<li>
-							<a href="/logout">Logout</a>
-						</li>
+						
+			<% if( isLoggedin) { %>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+				<% }else { %>
+					<li>
+						<a href="/login">Login</a>
+					</li>
+				<% } %>
 						
 						
 						
@@ -276,23 +269,16 @@
 				<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
 			</li>
 
+			
+			<% if( isLoggedin) { %>
 			<li>
-				<a href="blog.html">Blog</a>
+				<a href="/logout">Logout</a>
 			</li>
-
-			<li>
-				<a href="about.html">About</a>
-			</li>
-
-			<li>
-				<a href="contact.html">Contact</a>
-			</li>
-			<li>
+			<% }else { %>
+				<li>
 				<a href="login">Login</a>
 			</li>
-			<li>
-				<a href="login">Logout</a>
-			</li>
+			<% } %>
 		</ul>
 	</div>
 
