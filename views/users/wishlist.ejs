@@ -1,0 +1,105 @@
+<%- include('../partials/userHeader.ejs') %>
+
+
+    <!-- breadcrumb -->
+    <div class="container">
+       
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-84 p-lr-0-lg">
+            <!-- <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+        <span class="stext-109 cl4">
+            Shoping Cart
+        </span> -->
+        </div>
+    </div>
+
+
+    <!-- Shoping Cart -->
+    <form class="bg0 p-t-75 p-b-85">
+        <div class="container">
+            <h3  class=" mb-5 ml-5" >WISHLIST</h3>
+            <div class="row">
+                <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                    <div class="m-l-25 m-r--38 m-lr-0-xl">
+                        <div class="wrap-table-shopping-cart">
+                            <table class="table-shopping-cart">
+                                <tr class="table_head">
+                                    <th class="column-1">Image</th>
+                                    <th class="column-1">Product</th>
+
+                                    <th class="column-3">Price</th>
+                                    <!-- <th class="column-4">Quantity</th> -->
+                                    <!-- <th class="column-5">Total</th> -->
+                                </tr>
+
+                                <% if(id) {%>
+                                    <% for(let key of wishlistProducts.item){ %>
+
+                                        <tr class="table_row">
+                                            <td class="column-1">
+                                                <div class="how-itemcart1">
+                                                    <img src="/assets/uploads/<%= key.productId.image %> " alt="IMG">
+                                                </div>
+                                            </td>
+                                            <!-- <td class="column-2">Fresh Strawberries</td> -->
+                                            <td class="column-2 ml-5">
+                                                <%= key.productId.name %>
+                                            </td>
+                                            <td class="column-3">Rs. <%= key.productId.price %>
+                                            </td>
+                                            <!-- <td class="column-4">
+                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-minus"></i>
+                                        </div>
+
+                                        <input class="mtext-104 cl3 txt-center num-product" type="next" name="num-product1" value="1">
+
+                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-plus"></i>
+                                        </div>
+                                    </div>
+                                </td> -->
+                                            <!-- <td>
+                                     
+                                </td> -->
+                                            <!-- <td class="column-5">
+                                                <button
+                                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                                    <a href="/cart" style="color: white;" href="">Add to cart</a>
+                                                </button> -->
+
+                                                <td>
+                                                    <div class="column-5">
+                                                     <a style="color: rgb(30, 30, 30);" href="/add-to-cart-delete-wishlist?id=<%=key.productId._id%>" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add to Cart</a>
+                                                     </div>
+                                                </td>
+                                                <td class="nk-product-cart-remove"><a href="/delete-wishlist?id=<%=key.productId._id%>"><span >
+                                                    Remove
+                                                    </span></a>
+                                                </td>
+                        
+
+                                        </tr>
+
+                                        <% } } else{%>
+                                            <h1>no products to show</h1>
+                                            <%} %>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    
+
+
+
+    <%- include('../partials/userFooter.ejs') %>
+
+
+   

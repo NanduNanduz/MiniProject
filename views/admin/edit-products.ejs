@@ -1,0 +1,80 @@
+<%- include('../partials/adminHeader.ejs') %>
+
+  <div class="content-wrapper">
+    <div class="row">
+
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Edit products</h4>
+
+            <form class="forms-sample" method="post" action="/admin/editproduct">
+
+              <div class="form-group">
+                <label for="exampleInputName1">Product name</label>
+                <input type="text" class="form-control" id="exampleInputName1" name="name" value="<%=product.name  %> "
+                  placeholder="Name">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail3">Price</label>
+                <input type="text" class="form-control" id="exampleInputEmail3" name="price"
+                  value="<%= product.price  %>" placeholder=" ">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword4">Description</label>
+                <input type="text" class="form-control" id="exampleInputPassword4" name="description"
+                  value="<%= product.description  %>" placeholder="Password">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword4">Category</label>
+                <input type="text" class="form-control" id="exampleInputPassword4" name="category"
+                  value="<%= product.category  %>">
+              </div>
+
+              <!-- <div class="form-group">
+          <label>File upload</label>
+          <input type="file" name="img[]" class="file-upload-default">
+          <div class="input-group col-xs-12">
+            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+            <span class="input-group-btn">
+              <button class="file-upload-browse btn btn-info" type="button">Upload</button>
+            </span>
+          </div>
+        </div> -->
+
+
+              <div class="d-flex flex-row align-items-center mb-4">
+
+                <div class="form-outline flex-fill mb-0">
+                  <label class="form-label" for="form3Example4c">Image</label>
+                  <input type="file" id="form3Example4c" class="form-control" name="image" accept="image/*"/>
+                  <input type="file" class="form-control mb-2" name="image" id="formFile" accept="image/*"> 
+                  <input type="file" class="form-control mb-2" name="image" id="formFile" accept="image/*"> 
+                </div>
+              </div>
+
+
+              <!---- <div class="form-group">
+          <label for="exampleInputCity1">City</label>
+          <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+        </div>
+        <div class="form-group">
+          <label for="exampleTextarea1">Textarea</label>
+          <textarea class="form-control" id="exampleTextarea1" rows="2"></textarea>
+        </div> -->
+
+              <input type="hidden" name="id" value="<%= product._id %>">
+              <button type="submit" class="btn btn-success mr-2">Save Edits</button>
+
+
+              <!-- <button type="submit" class="btn btn-success mr-2">Save Edits</button> -->
+              <button class="btn btn-light">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <%- include('../partials/adminFooter.ejs') %>

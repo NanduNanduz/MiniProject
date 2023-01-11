@@ -1,0 +1,117 @@
+<%- include('../partials/adminHeader.ejs') %>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">CATEGORIES</h4>
+
+                        <div class="text-end upgrade-btn">
+                            <a href="/admin/addCategory">
+                                <button type="submit" class="btn btn-danger text-white float-right" text-align="right">
+                                    Add Category
+                                </button>
+                            </a>
+                            <!-- <a href="/admin/addProduct"  class="btn btn-danger text-white">Add Products</a> -->
+                        </div>
+                        <!-- <button type="submit" class="btn btn-danger text-white">Add Products</button> -->
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        SL.No
+                                    </th>
+                                    <th>
+                                        Category name
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                    <!-- <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Image
+                                    </th>
+                                    <th>
+                                        Update
+                                    </th> -->
+
+                                    <!-- <th>
+                                        Action
+                                    </th> -->
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% if( category.length> 0){ %>
+                                    <% for(let i=1;i<=category.length; i++){ %>
+
+                                        <tr>
+                                            <th scope="row">
+                                                <%= i %>
+                                            </th>
+                                            <td>
+                                                <%= category[i-1].name %>
+                                            </td>
+
+
+                                            <td>
+                                                <a class="text-success"
+                                                    href="/admin/editCategory?id=<%= category[i-1]._id %>"><i
+                                                        style="color: green;"
+                                                        class="m-r-5 mdi mdi-border-color"></i>Edit</a><br>
+                                                <!-- <a data-toggle="modal" style="color: red"; data-target="
+                                #deleteModal" href=""><i
+                                    class=" m-r-5 mdi mdi-delete-forever"></i>Delete</a> -->
+                                                <a class="text-danger"
+                                                    href="/admin/deleteCategory?id=<%= category[i-1]._id %>"><i
+                                                        style="color: #ff0000;"
+                                                        class="m-r-5 mdi mdi-border-color"></i>Delete</a><br>
+                                            </td>
+
+
+
+                                            <!-- model bootstrap -->
+                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Delete
+                                                                The Item ?</h5> <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close"> <span
+                                                                    aria-hidden="true">×</span> </button>
+                                                        </div>
+                                                        <div class="modal-body"> Are you sure you want to delete the
+                                                            item : <strong>
+                                                                <p>
+                                                                    <%= category[i-1].name %>
+                                                                </p>
+                                                            </strong> </div>
+                                                        <div class="modal-footer"> <button type="button"
+                                                                class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button> <a
+                                                                href="/admin/deleteCategory?id=<%= category[i-1]._id %>"
+                                                                type="button" class="btn btn-danger">Delete Item</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
+                                        <% } %>
+                                            <% }else { %>
+                                                <tr>
+                                                    <td colspan="5">category Not Found</td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <%- include('../partials/adminFooter.ejs') %>

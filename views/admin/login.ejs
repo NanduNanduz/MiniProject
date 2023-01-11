@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>Home </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/slick/slick.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/MagnificPopup/magnific-popup.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/bootstrap/js/popper.js"></script>
+	<script defer src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/select2/select2.min.js"></script>
+	<script defer>/assets/
+		$(".js-select2").each(function () {
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/daterangepicker/moment.min.js"></script>
+	<script defer src="/assets/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/slick/slick.min.js"></script>
+	<script defer src="/assets/js/slick-custom.js"></script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/parallax100/parallax100.js"></script>
+	<script defer>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script defer>
+		$('.gallery-lb').each(function () { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate: 'a', // the selector for gallery item
+				type: 'image',
+				gallery: {
+					enabled: true
+				},
+				mainClass: 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/sweetalert/sweetalert.min.js"></script>
+	<script defer>
+		$('.js-addwish-b2').on('click', function (e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(function () {
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function () {
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-b2');
+				$(this).off('click');
+			});
+		});
+
+		$('.js-addwish-detail').each(function () {
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+			$(this).on('click', function () {
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function () {
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function () {
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script defer>
+		$('.js-pscroll').each(function () {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function () {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script defer src="/assets/js/main.js"></script>
+</head>
+
+
+
+<header>
+  <!-- Header desktop -->
+  <div class="container-menu-desktop">
+    <!-- Topbar -->
+    
+    <div class="wrap-menu-desktop">
+      <nav class="limiter-menu-desktop container">
+
+        <!-- Logo desktop -->
+        <a href="#" class="logo">
+          <img src="/assets/images/icons/logo-01.png" alt="IMG-LOGO">
+        </a>
+
+        <!-- Menu desktop -->
+        <div class="menu-desktop">
+          <!-- <ul class="main-menu">
+            <li class="active-menu">
+              <a href="/">Home</a>
+
+
+
+            </li>
+
+            <li>
+              <a href="/shop">Shop</a>
+            </li> -->
+
+            <!-- <li >
+              <a href="/">Features</a>
+            </li>
+
+            <li>
+              <a href="/">Blog</a>
+            </li>
+
+            <li>
+              <a href="/">About</a>
+            </li>
+
+            <li>
+              <a href="/">Contact</a>
+            </li> -->
+            <!-- <li>
+              <a href="login">Login</a>
+            </li>
+            <li>
+              <a href="/logout">Logout</a>
+            </li> -->
+          </ul>
+        </div>
+
+        <!-- Icon header -->
+        <!-- <div class="wrap-icon-header flex-w flex-r-m">
+          <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+            <i class="zmdi zmdi-search"></i>
+          </div>
+
+          <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+            data-notify="2">
+            <a href="/cart"><i class="zmdi zmdi-shopping-cart"></i></a>
+
+          </div>
+
+          <a href="/wishlist"
+            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+            data-notify="0">
+            <i class="zmdi zmdi-favorite-outline"></i>
+          </a>
+        </div> -->
+      </nav>
+    </div>
+  </div>
+
+  <!-- Header Mobile -->
+  <div class="wrap-header-mobile">
+    <!-- Logo moblie -->
+    <div class="logo-mobile">
+      <a href="index.html"><img src="/assets/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+    </div>
+
+    <!-- Icon header -->
+    <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+      <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+        <i class="zmdi zmdi-search"></i>
+      </div>
+
+      <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+        data-notify="2">
+        <i class="zmdi zmdi-shopping-cart"></i>
+      </div>
+
+      <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+        data-notify="0">
+        <i class="zmdi zmdi-favorite-outline"></i>
+      </a>
+    </div>
+
+    <!-- Button show menu -->
+    <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </div>
+  </div>
+
+
+  <!-- Menu Mobile -->
+  <div class="menu-mobile">
+    <ul class="topbar-mobile">
+      <li>
+        <div class="left-top-bar">
+          Free shipping for standard order over $100
+        </div>
+      </li>
+
+      <li>
+        <div class="right-top-bar flex-w h-full">
+          <a href="#" class="flex-c-m p-lr-10 trans-04">
+            Help & FAQs
+          </a>
+
+          <a href="#" class="flex-c-m p-lr-10 trans-04">
+            My Account
+          </a>
+
+          <a href="#" class="flex-c-m p-lr-10 trans-04">
+            EN
+          </a>
+
+          <a href="#" class="flex-c-m p-lr-10 trans-04">
+            USD
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <ul class="main-menu-m">
+      <li>
+        <a href="index.html">Home</a>
+        <ul class="sub-menu-m">
+
+          <span class="arrow-main-menu-m">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </span>
+      </li>
+
+      <li>
+        <a href="product.html">Shop</a>
+      </li>
+
+      <li>
+        <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+      </li>
+
+      <li>
+        <a href="blog.html">Blog</a>
+      </li>
+
+      <li>
+        <a href="about.html">About</a>
+      </li>
+
+      <li>
+        <a href="contact.html">Contact</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Modal Search -->
+  <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+    <div class="container-search-header">
+      <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+        <img src="/assets/images/icons/icon-close2.png" alt="CLOSE">
+      </button>
+
+      <form class="wrap-search-header flex-w p-l-15">
+        <button class="flex-c-m trans-04">
+          <i class="zmdi zmdi-search"></i>
+        </button>
+        <input class="plh3" type="text" name="search" placeholder="Search...">
+      </form>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+
+
+
+
+  <section class="vh-100  p-t-30" style="background-color: white;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <% if(typeof message !=='undefined' ){ %>
+                    <h4>
+                      <%= message %>
+                    </h4>
+                    <% } %>
+
+                      <form action="" method="post">
+
+                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into admin account</h5>
+
+                        <div class="form-outline mb-4">
+                          <input type="email" id="form2Example17" name="email" class="form-control form-control-lg"
+                            required />
+                          <label class="form-label" for="form2Example17">Email address</label>
+                        </div>
+
+
+                        <div class="form-outline mb-4">
+                          <input type="password" id="form2Example27" name="password"
+                            class="form-control form-control-lg" required />
+
+
+
+                          <label class="form-label" for="form2Example27">Password</label>
+                        </div>
+
+                        <div class="pt-1 mb-4">
+                          <button class="btn btn-dark btn-lg btn-block" type="submit" value="LOGIN">Login</button>
+                        </div>
+
+                        <!---  <a class="small text-muted" href="#!">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account?   <a href="/register"
+                      style="color: #393f81;">Register here</a></p>---->
+                        <a href="#!" class="small text-muted">Terms of use.</a>
+                        <a href="#!" class="small text-muted">Privacy policy</a>
+                      </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 

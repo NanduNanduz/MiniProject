@@ -1,0 +1,230 @@
+<%- include('../partials/userHeader.ejs') %>
+  <section class="vh-100 p-t-30" style="background-color:white;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <% if(typeof message !=='undefined' ){ %>
+                    <h4 style="color: red;">
+                      <%= message %>
+                    </h4>
+                    <% } %>
+
+                      <form method="post" onsubmit="return validation()">
+
+
+                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Create an account</h5>
+
+                        <!-- <div class="form-outline mb-4">
+                        <input type="text"   id="name"  name="name" class="form-control form-control-lg" />
+                        <label class="form-label" for="form2Example17">Username</label>
+                        <span id="usererror" class="text-danger fond-weight-bold"></span>
+                      </div> -->
+
+
+
+                        <div class="form-outline mb-4">
+                          <input type="text" id="username" name="name" class="form-control form-control-lg"
+                            placeholder="Enter name">
+                          <span id="usererror" class="text-danger fond-weight-bold"></span>
+                        </div>
+
+
+
+                        <!-- <div class="form-outline mb-4">
+                        <input type="text" id="email"  name="email" class="form-control form-control-lg" />
+                        <label class="form-label" for="form2Example17">Email</label>
+                        <span id="emailerror" class="text-danger fond-weight-bold"></span>
+                      </div> -->
+
+
+                        <div class="form-outline mb-4">
+                          <input type="email" id="email" name="email" class="form-control form-control-lg"
+                            placeholder="Enter Email">
+                          <span id="emailerror" class="text-danger fond-weight-bold"></span>
+                        </div>
+
+
+
+                        <!-- <div class="form-outline mb-4">
+                        <input type="text" id="mobile" name="mobile" class="form-control form-control-lg" />
+                        <label class="form-label" for="form2Example17">Mobile</label>
+                        <span id="mobileerror" class="text-danger fond-weight-bold"></span>
+
+                      </div> -->
+
+
+                        <div class="form-outline mb-4">
+                          <input type="text" id="mobile" name="mobile" class="form-control form-control-lg"
+                            placeholder="Enter mobile number">
+                          <span id="mobileerror" class="text-danger fond-weight-bold"></span>
+                        </div>
+
+
+
+                        <!-- <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control form-control-lg"/>
+                        <label class="form-label" for="form2Example27">Password</label>
+                        <span id="passworderror" class="text-danger fond-weight-bold"></span>
+                      </div> -->
+
+                        <div class="form-outline mb-4">
+                          <input type="password" id="password" name="password" class="form-control form-control-lg"
+                            placeholder="Enter password">
+                          <span id="passworderror" class="text-danger fond-weight-bold"></span>
+                        </div>
+
+
+
+
+                        <!-- <div class="form-outline mb-4">
+                        <input type="password"  id="cpassword" name="cpassword" class="form-control form-control-lg"  />
+                        <label class="form-label" for="form2Example27">Confirm Password</label>
+                        <span id="cpassworderror" class="text-danger fond-weight-bold"></span>--->
+
+
+
+                        <div class="form-outline mb-4">
+                          <input type="password" name="cpassword" id="cpassword" class="form-control form-control-lg"
+                            placeholder="Confirm password">
+                          <span id="cpassworderror" class="text-danger fond-weight-bold"></span>
+                        </div>
+
+
+
+
+
+                        <div class="d-flex justify-content-center">
+                          <input type="submit" class="btn btn-secondary btn-block btn-lg gradient-custom-4 text-body"
+                            name="">
+                        </div>
+
+
+
+                        <!-- <div class="d-flex justify-content-center">
+                        <button type="submit"
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                      </div> -->
+
+
+
+                        <p class="text-center text-muted mt-2 mb-0">Have already an account? <a href="/login"
+                            class="fw-bold text-body"><u>Login here</u></a></p>
+                        <form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript">
+    function validation() {
+
+      var username = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var mobile = document.getElementById("mobile").value;
+      var password = document.getElementById("password").value;
+      var cpassword = document.getElementById("cpassword").value;
+
+
+      var usercheck = /^[A-Za-z. ]{3,30}$/;
+      var emailcheck = /^[A-Za-z_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
+      var mobilecheck = /^[91][0-9]{9}$/;
+      var passwordcheck = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+
+
+
+      if (usercheck.test(username)) {
+        document.getElementById('usererror').innerHTML = " ";
+      } else {
+        document.getElementById('usererror').innerHTML = "** Username is Invalid";
+        return false;
+      }
+
+      if (emailcheck.test(email)) {
+        document.getElementById('emailerror').innerHTML = " ";
+      } else {
+        document.getElementById('emailerror').innerHTML = "** Email is Invalid";
+        return false;
+      }
+
+      if (mobilecheck.test(mobile)) {
+        document.getElementById('mobileerror').innerHTML = " ";
+      } else {
+        document.getElementById('mobileerror').innerHTML = "** Mobile is Invalid";
+        return false;
+      }
+
+      if (passwordcheck.test(password)) {
+        document.getElementById('passworderror').innerHTML = " ";
+      } else {
+        document.getElementById('passworderror').innerHTML = "** Password is Invalid";
+        return false;
+      }
+
+      if (cpassword.match(password)) {
+        document.getElementById('cpassworderror').innerHTML = " ";
+      } else {
+        document.getElementById('cpassworderror').innerHTML = "** Password is not matching";
+        return false;
+      }
+    }
+
+
+  // function validatename() {
+  //   var name = document.getElementById("name").value;
+  //   if (!name.match(/^[a-zA-Z]+ [a-zA-Z]+$/)) {
+  //     Nameerror.innerHTML = "invalid name"
+  //     return false;
+
+  //   }
+  //   Nameerror.innerHTML = " ";
+  //   return true;
+  // }
+
+
+
+  // function validateemail() {
+  //   var email = document.getElementById("email").value;
+  //   if (!email.match(/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/)) {
+  //     Emailerror.innerHTML = "invalid email "
+  //     return false;
+  //   }
+  //   Emailerror.innerHTML = " ";
+  //   return true;
+  // }
+
+
+  // function validatemno() {
+  //   var mno = document.getElementById("mno").value;
+  //   if (!mno.match(/^(0|[+91]{3})?[7-9][0-9]{9}$/)) {
+  //     mnoerror.innerHTML = "invalid number"
+  //     return false;
+  //   }
+  //   mnoerror.innerHTML = " "
+  //   return true;
+  // }
+
+  // function validatepass() {
+  //   var pass = document.getElementById("pass").value;
+  //   if (!pass.match(/^[a-zA-Z0-9!@#$%^&*]{6,16}$/)) {
+  //     passerror.innerHTML = "invalid password"
+  //     return false;
+
+  //   }
+  //   passerror.innerHTML = " "
+  //   return true;
+  // }
+
+  </script>
+  <%- include('../partials/userFooter.ejs') %>
