@@ -13,6 +13,8 @@ const express = require('express')
 const { query } = require('express')
 const app = express()
 
+const { ObjectId } = require('bson')
+
 const cors = require('cors')
 app.use(cors())
 let isLoggedin
@@ -32,7 +34,7 @@ let nocoupon
 
 const loginLoad = async (req, res) => {
     try {
-        res.render('login' ,{isLoggedin,count: 0 })
+        res.render('login', { isLoggedin, count: 0 })
 
     } catch (error) {
         console.log("error")
@@ -43,7 +45,7 @@ const loginLoad = async (req, res) => {
 
 const loadRegister = async (req, res) => {
     try {
-        res.render('register',{count: 0 })
+        res.render('register', { count: 0 })
 
     } catch (error) {
         console.log("error")
@@ -234,9 +236,9 @@ const loadProductDetails = async (req, res) => {
 
             const userData = await User.findById({ _id: userSession.userId })
 
-            res.render('productDetails', { isLoggedin,product: productData, count: userData.cart.totalqty, })
+            res.render('productDetails', { isLoggedin, product: productData, count: userData.cart.totalqty, })
         } else {
-            res.render('productDetails', {isLoggedin, product: productData, count: 0 })
+            res.render('productDetails', { isLoggedin, product: productData, count: 0 })
 
         }
     } catch (error) {
@@ -399,26 +401,26 @@ const deleteWishlist = async (req, res) => {
 //     }
 // }
 
-const viewBlog = async(req,res)=>{
-    try{
+const viewBlog = async (req, res) => {
+    try {
         res.render('blog')
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
 
-const viewAbout = async(req,res)=>{
-    try{
+const viewAbout = async (req, res) => {
+    try {
         res.render('about')
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
 
-const viewContact = async(req,res)=>{
-    try{
+const viewContact = async (req, res) => {
+    try {
         res.render('contact')
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
@@ -499,7 +501,7 @@ const loadCheckout = async (req, res) => {
 
             const completeUser = await userData.populate('cart.item.productId')
             const addressData = await Address.find({ userId: userSession.userId })
-            const selectAddress = await Address.findOne({ _id:id })
+            const selectAddress = await Address.findOne({ _id: id })
             const offer = await Offer.findOne({ _id: userSession.userId })
             console.log('select address : ' + selectAddress)
             // console.log('UserData: ',userData);
@@ -512,11 +514,11 @@ const loadCheckout = async (req, res) => {
             }
 
 
-            res.render('checkout', { isLoggedin, id: userSession.userId, cartProducts: completeUser.cart, offer: userSession.offer, couponTotal: userSession.couponTotal, nocoupon, addSelect: selectAddress, userAddress: addressData, addSelect: selectAddress,count: userData.cart.totalqty, })
+            res.render('checkout', { isLoggedin, id: userSession.userId, cartProducts: completeUser.cart, offer: userSession.offer, couponTotal: userSession.couponTotal, nocoupon, addSelect: selectAddress, userAddress: addressData, addSelect: selectAddress, count: userData.cart.totalqty, })
             nocoupon = false;
 
         } else {
-            res.render('checkout', { isLoggedin, id: userSession.userId, count:0})
+            res.render('checkout', { isLoggedin, id: userSession.userId, count: 0 })
 
         }
     } catch (error) {
@@ -631,9 +633,9 @@ const storeOrder = async (req, res) => {
                 if (req.body.payment == 'Cash-on-Dilevery') {
                     res.redirect('/order-success')
                 } else if (req.body.payment == 'RazorPay') {
-                    res.render('razorpay', { isLoggedin,userId: userSession.userId, total: completeUser.cart.totalPrice , count: userData.cart.totalqty,})
+                    res.render('razorpay', { isLoggedin, userId: userSession.userId, total: completeUser.cart.totalPrice, count: userData.cart.totalqty, })
                 } else if (req.body.payment == 'PayPal') {
-                    res.render('paypal', { isLoggedin,userId: userSession.userId, total: completeUser.cart.totalPrice })
+                    res.render('paypal', { isLoggedin, userId: userSession.userId, total: completeUser.cart.totalPrice })
                 } else {
                     res.redirect('/catalog')
                 }
@@ -645,9 +647,6 @@ const storeOrder = async (req, res) => {
         console.log(error.message);
     }
 }
-
-
-
 
 
 
@@ -672,12 +671,12 @@ const loadSuccess = async (req, res) => {
                 }
             }
             await Orders.updateOne({ userId: userSession.userId, _id: userSession.currentOrder }, { $set: { 'status': 'Build' } })
-            await User.updateOne({ _id: userSession.userId }, { $set: { 'cart.item': [], 'cart.totalPrice': '0' ,'cart.totalqty':'0'} }, { multi: true })
+            await User.updateOne({ _id: userSession.userId }, { $set: { 'cart.item': [], 'cart.totalPrice': '0', 'cart.totalqty': '0' } }, { multi: true })
             console.log("Order Built and Cart is Empty.");
         }
         userSession.couponTotal = 0
 
-        res.render('orderSuccess',{isLoggedin,count:0})
+        res.render('orderSuccess', { isLoggedin, count: 0 })
     } catch (error) {
         console.log(error.message);
     }
@@ -696,7 +695,7 @@ const viewOrder = async (req, res) => {
             const userData = await User.findById({ _id: userSession.userId })
             await orderData.populate('products.item.productId')
             // console.log(orderData.products.item);
-            res.render('viewOrder', { order: orderData, user: userData  , count: userData.cart.totalqty,})
+            res.render('viewOrder', { isLoggedin, order: orderData, user: userData, count: userData.cart.totalqty, })
         } else {
             res.redirect('/login')
         }
@@ -726,7 +725,7 @@ const userDashboard = async (req, res) => {
         console.log("user dashboard")
         const addressData = await Address.find({ userId: userSession.userId })
         console.log(addressData);
-        res.render('dashboard', { user: userData, userAddress: addressData, userOrders: orderData, count: userData.cart.totalqty })
+        res.render('dashboard', { isLoggedin, user: userData, userAddress: addressData, userOrders: orderData, count: userData.cart.totalqty })
     } catch (error) {
         console.log(error.message)
         console.log("end")
@@ -789,27 +788,27 @@ const deleteAddress = async (req, res) => {
 
 const editUser = async (req, res) => {
     try {
-      session = req.session;
-      if (session.userId) {
-        await User.findByIdAndUpdate(
-          { _id: session.userId },
-          {
-            $set: {
-              name: req.body.name,
-              lname: req.body.lname,
-              username: req.body.username,
-              mobile: req.body.mobile,
-            },
-          }
-        );
-        res.redirect('/dashboard');
-      } else {
-        res.redirect('/login');
-      }
+        session = req.session;
+        if (session.userId) {
+            await User.findByIdAndUpdate(
+                { _id: session.userId },
+                {
+                    $set: {
+                        name: req.body.name,
+                        lname: req.body.lname,
+                        username: req.body.username,
+                        mobile: req.body.mobile,
+                    },
+                }
+            );
+            res.redirect('/dashboard');
+        } else {
+            res.redirect('/login');
+        }
     } catch (error) {
-      console.log(error.message);
+        console.log(error.message);
     }
-  };
+};
 
 
 
@@ -860,7 +859,7 @@ const currentBanner = async (req, res) => {
 //         userSession = req.session
 //         if (userSession.userId) {
 //             const offer = { a: req.body.offer }
-           
+
 //             const userData = await User.findById({ _id: userSession.userId })
 //             const offerData = await Offer.findOne({ name: offer.a })
 
@@ -868,7 +867,7 @@ const currentBanner = async (req, res) => {
 //                 if (offerData.usedBy.includes(userSession.userId)) {
 //                     nocoupon = true;
 //                     userSession.offer.usedBy = true
-                   
+
 //                      res.redirect('/cart')
 //                 } else {
 //                     userSession.offer.name = offerData.name
@@ -901,40 +900,40 @@ const currentBanner = async (req, res) => {
 
 
 
-const addCoupon = async(req,res)=>{
+const addCoupon = async (req, res) => {
     try {
         userSession = req.session
         console.log("coupon added")
 
-        if(userSession.userId){
-            const userData =await User.findById({ _id:userSession.userId })
-            const offerData = await Offer.findOne({name:req.body.offer})
+        if (userSession.userId) {
+            const userData = await User.findById({ _id: userSession.userId })
+            const offerData = await Offer.findOne({ name: req.body.offer })
             console.log(offerData);
-            if(offerData){
-                if(offerData.usedBy != userSession.userId){
+            if (offerData) {
+                if (offerData.usedBy != userSession.userId) {
                     userSession.offer.name = offerData.name
-                    userSession.offer.type = offerData.type 
-                    userSession.offer.discount = offerData.discount 
-                    
-                    let updatedTotal =userData.cart.totalPrice - (userData.cart.totalPrice * userSession.offer.discount)/100
+                    userSession.offer.type = offerData.type
+                    userSession.offer.discount = offerData.discount
+
+                    let updatedTotal = userData.cart.totalPrice - (userData.cart.totalPrice * userSession.offer.discount) / 100
                     userSession.couponTotal = updatedTotal
-                    res.redirect('/cart')    
-                }else{
+                    res.redirect('/cart')
+                } else {
                     // nocoupon = true;
                     userSession.offer.usedBy = true
 
                     res.redirect('/cart')
                 }
 
-                
-            }else{
+
+            } else {
 
 
                 res.redirect('/cart')
 
             }
 
-        }else{
+        } else {
             res.redirect('/cart')
         }
 
@@ -947,49 +946,51 @@ const addCoupon = async(req,res)=>{
 
 const returnProduct = async (req, res) => {
     try {
-      session = req.session;
-      if ((session = req.session)) {
-        const id = req.query.id;
-        // console.log('id',new String(id));
-        const productOrderData = await Orders.findById({
-          _id: ObjectId(session.currentOrder),
-        });
-        // console.log('productOrderData.products.item[i].productId',new String(productOrderData.products.item[0].productId));
-        const productData = await Product.findById({ _id: id });
-        if (productOrderData) {
-          for (let i = 0; i < productOrderData.products.item.length; i++) {
-            if (
-              new String(productOrderData.products.item[i].productId).trim() ===
-              new String(id).trim()
-            ) {
-              productData.stock += productOrderData.products.item[i].qty;
-              productOrderData.productReturned[i] = 1;
-              console.log('found!!!');
-              console.log('productData.stock', productData.stock);
-              await productData.save().then(() => {
-                console.log('productData saved');
-              });
-              console.log(
-                'productOrderData.productReturned[i]',
-                productOrderData.productReturned[i]
-              );
-              await productOrderData.save().then(() => {
-                console.log('productOrderData saved');
-              });
-            } else {
-              // console.log('Not at position: ',i);
+        session = req.session;
+        if ((session = req.session)) {
+            const id = req.query.id;
+            // console.log('id',new String(id));
+            const productOrderData = await Orders.findById({
+                _id: ObjectId(session.currentOrder),
+            });
+            // console.log('productOrderData.products.item[i].productId',new String(productOrderData.products.item[0].productId));
+            const productData = await Product.findById({ _id: id });
+            console.log(productData)
+
+            if (productOrderData) {
+                for (let i = 0; i < productOrderData.products.item.length; i++) {
+                    if (
+                        new String(productOrderData.products.item[i].productId).trim() ===
+                        new String(id).trim()
+                    ) {
+                        productData.stock += productOrderData.products.item[i].qty;
+                        productOrderData.productReturned[i] = 1;
+                        console.log('found!!!');
+                        console.log('productData.stock', productData.stock);
+                        await productData.save().then(() => {
+                            console.log('productData saved');
+                        });
+                        console.log(
+                            'productOrderData.productReturned[i]',
+                            productOrderData.productReturned[i]
+                        );
+                        await productOrderData.save().then(() => {
+                            console.log('productOrderData saved');
+                        });
+                    } else {
+                        // console.log('Not at position: ',i);
+                    }
+                }
+                res.redirect('/dashboard');
             }
-          }
-          res.redirect('/dashboard');
+        } else {
+            res.redirect('/login');
         }
-      } else {
-        res.redirect('/login');
-      }
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
-  
+};
+
 
 
 
