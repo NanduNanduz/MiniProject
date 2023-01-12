@@ -2,13 +2,6 @@
     <!-- START: Tabs  -->
    
 
-
-
-
-
-
-    <%- include('../partials/userHeader',{count:count}) %>
-    <!-- START: Tabs  -->
     <div class="container row">
         <div class="container row mt-5">
 
@@ -78,7 +71,7 @@
                         <thead>
                             <tr style="color: black;">
                                 <th scope="col">OrderId</th>
-                                <th scope="col">Time</th>
+                                <th scope="col">Date</th>
                                 <th scope="col">Payment</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Actions</th>
@@ -92,7 +85,7 @@
                                         <%= key._id %>
                                     </td>
                                     <td>
-                                        <%= key.createdAt %>
+                                        <%= key.createdAt.toDateString() %>
                                     </td>
                                     <td>
                                         <%= key.payment %>

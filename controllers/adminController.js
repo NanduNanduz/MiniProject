@@ -179,14 +179,12 @@ const editProduct = async (req, res) => {
         if (productData) {
             res.render('edit-products', { product: productData })
         } else {
-            res.redirect('/admin/viewProduct')
+            res.redirect('/admin/editproduct')
         }
     } catch (error) {
         console.log(error.message);
     }
 }
-
-
 
 
 
@@ -214,7 +212,7 @@ const updateEditproduct = async (req, res) => {
                 image2 : req.body.image[2],
             }
         })
-        res.redirect('/admin/viewProduct')
+        res.redirect('productlist')
     } catch (error) {
         console.log(error.message)
     }
@@ -262,11 +260,11 @@ const block = async (req, res) => {
         if (userData.is_blocked) {
             console.log("unblocking")
             await User.findByIdAndUpdate({ _id: id }, { $set: { is_blocked: 0 } })
-            res.redirect('/admin/dashboard')
+            res.redirect('/admin/userList')
         }
         else {
             await User.findByIdAndUpdate({ _id: id }, { $set: { is_blocked: 1 } })
-            res.redirect('/admin/dashboard')
+            res.redirect('/admin/usersList')
         }
 
     } catch (error) {
@@ -283,6 +281,8 @@ const viewCategory = async (req, res) => {
 }
 
 
+
+
 const loadCategory = async (req, res) => {
     try {
         const adminSession = req.session;
@@ -294,14 +294,33 @@ const loadCategory = async (req, res) => {
 }
 
 
+// const addCategory = async (req, res) => {
+//     const category = Category({
+//         name: req.body.category
+//     })
+//     console.log(category)
+//     const categoryData = await category.save()
+//     res.redirect('/admin/category')
+// }
+
+
+
 const addCategory = async (req, res) => {
-    const category = Category({
-        name: req.body.category
-    })
-    console.log(category)
-    const categoryData = await category.save()
-    res.redirect('/admin/category')
-}
+    const categoryData = await Category.findOne( { name: req.body.category})
+    if(categoryData){
+      res.render('addCategory', { category: categoryData, message: 'category already Exists'})
+    } else{
+      try {
+        const category = Category({
+          name: req.body.category,
+        });
+        const categoryData = await category.save();
+        res.redirect("/admin/category");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
 
 const deleteCategory = async (req, res) => {

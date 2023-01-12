@@ -56,8 +56,6 @@ user_route.get('/dashboard',userMiddleware.isLogin,userControllers.userDashboard
 user_route.post('/addAddress',userMiddleware.isLogin,userControllers.addAddress)
 user_route.get('/deleteAddress',userControllers.deleteAddress)
 
-
-
 user_route.post('/razorpay',userMiddleware.isLogin,userControllers.razorpayCheckout)
 
 user_route.get('/return-product',userControllers.returnProduct)

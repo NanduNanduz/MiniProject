@@ -31,6 +31,17 @@ app.use('/', userRoute)
 const adminRoute = require('./routes/adminRoute')
 app.use('/admin', adminRoute)
 
+// app.use('/', userRoute);
+// app.use('/admin', adminRoute);
+// app.use('/*/', (req, res) => {
+//   res.render('user/user404',{layout: '../views/layout/layout.ejs',});
+// });
+
+
+app.get("*",function(req,res){
+    res.status(404).render("user404.ejs")
+})
+
 
 app.listen(3000, function () {
     console.log("server is running")
