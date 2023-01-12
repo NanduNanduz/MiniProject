@@ -45,7 +45,7 @@ const loginLoad = async (req, res) => {
 
 const loadRegister = async (req, res) => {
     try {
-        res.render('register', { count: 0 })
+        res.render('register', { isLoggedin,count: 0 })
 
     } catch (error) {
         console.log("error")
@@ -80,9 +80,9 @@ const loadHome = async (req, res) => {
         const productData = await Product.find()
         if (userSession.userId) {
             const userData = await User.findById({ _id: userSession.userId })
-            res.render("home", { isLoggedin, banners: banner, products: productData, id: userSession.userId, count: userData.cart.totalqty, });
+            res.render("home", { isLoggedin, banners: banner, product: productData, id: userSession.userId, count: userData.cart.totalqty, });
         } else {
-            res.render("home", { isLoggedin, banners: banner, products: productData, id: userSession.userId, count: 0, });
+            res.render("home", { isLoggedin, banners: banner, product: productData, id: userSession.userId, count: 0, });
 
         }
     } catch (error) {
@@ -125,17 +125,17 @@ const insertUser = async (req, res) => {
                     res.redirect('/verifyOtp')
                 }
                 else {
-                    res.render('register', { message: "registration failed" })
+                    res.render('register', {isLoggedin, message: "registration failed",count: 0 })
                 }
             } else if (alreadyExistingusername) {
-                res.render('register', { message: "Username Already Exist" })
+                res.render('register', {isLoggedin, message: "Username Already Exist",count: 0 })
 
             } else {
-                res.render('register', { message: "Mobile Number Already Exist" })
+                res.render('register', {isLoggedin, message: "Mobile Number Already Exist" ,count: 0})
 
             }
         } else {
-            res.render('register', { message: "Password Mismatch" })
+            res.render('register', { isLoggedin,message: "Password Mismatch",count: 0 })
 
         }
     } catch (error) {
@@ -167,15 +167,15 @@ const varifyLogin = async (req, res) => {
                     }
                 }
                 else {
-                    res.render('login')
+                    res.render('login',{isLoggedin,count: 0})
                 }
             }
             else {
-                res.render('login', { message: "you are blocked" })
+                res.render('login', {isLoggedin, message: "you are blocked" ,count: 0})
             }
         }
         else {
-            res.render('login')
+            res.render('login',{isLoggedin,count: 0})
         }
     } catch (error) {
         console.log("error")
@@ -261,8 +261,9 @@ const loadCart = async (req, res) => {
                 //update coupon
                 userSession.couponTotal = userData.cart.totalPrice;
             }
-            console.log(completeUser)
+            console.log(typeof(completeUser.cart.item))
             res.render('cart', { isLoggedin, id: userSession.userId, cartProducts: completeUser.cart, offer: userSession.offer, count: userData.cart.totalqty, couponTotal: userSession.couponTotal })
+        
         } else {
             res.redirect('/login')
         }

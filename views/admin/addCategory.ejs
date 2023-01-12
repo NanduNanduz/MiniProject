@@ -6,6 +6,11 @@
                     <div class="card-title">
                         <h3 style="text-align: center;" class="mt-5 mb-5">ADD CATEGORY</h3>
                     </div>
+                    <% if(typeof message !=='undefined' ) { %>
+                        <p style="color: rgb(255, 0, 0); font-weight: bold">
+                          <%= message %>
+                        </p>
+                        <% } %>
                     <hr>
                     <form action="" method="post">
                         <div class="form-group mt-5 mb-5">

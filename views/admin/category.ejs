@@ -66,6 +66,7 @@
                                 #deleteModal" href=""><i
                                     class=" m-r-5 mdi mdi-delete-forever"></i>Delete</a> -->
                                                 <a class="text-danger"
+                                                onclick="return confirm('Do you want to delete <%= category[i-1].name %> ?')"
                                                     href="/admin/deleteCategory?id=<%= category[i-1]._id %>"><i
                                                         style="color: #ff0000;"
                                                         class="m-r-5 mdi mdi-border-color"></i>Delete</a><br>

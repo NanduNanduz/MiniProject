@@ -114,7 +114,7 @@ const allProducts = async (req, res) => {
     try {
         const adminSession = req.session;
         adminSession.adminId
-        const productData = await Product.find()
+        const productData = await Product.find({isAvailable:1})
         res.render('adminProductlist', { product: productData })
     } catch (error) {
         console.log(error.message)
@@ -223,7 +223,7 @@ const updateEditproduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const id = req.query.id;
-        await Product.deleteOne({ _id: id })
+        const productData = await Product.updateOne({_id: id},{$set:{isAvailable:0}})
         res.redirect('/admin/productlist')
     } catch (error) {
         console.log("delete product")
@@ -260,7 +260,7 @@ const block = async (req, res) => {
         if (userData.is_blocked) {
             console.log("unblocking")
             await User.findByIdAndUpdate({ _id: id }, { $set: { is_blocked: 0 } })
-            res.redirect('/admin/userList')
+            res.redirect('/admin/usersList')
         }
         else {
             await User.findByIdAndUpdate({ _id: id }, { $set: { is_blocked: 1 } })

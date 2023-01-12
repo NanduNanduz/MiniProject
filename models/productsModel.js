@@ -15,7 +15,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
+    isAvailable:{
+        type: Number,
+        default:1
+    },
     description: {
         type: String,
         required: true

@@ -81,32 +81,10 @@
 
                 <td>
                   <a class="text-success" href="/admin/edit-products?id=<%= product[i-1]._id %>"><i style="color: green;" class="m-r-5 mdi mdi-border-color"></i>Edit</a><br>
-                  <!-- <a data-toggle="modal" style="color: red"; data-target="
-                                #deleteModal" href=""><i
-                                    class=" m-r-5 mdi mdi-delete-forever"></i>Delete</a> -->
-                  <a class="text-danger  delete" style="color: red" ;  href="/admin/deleteProduct?id=<%= product[i-1]._id %>">
-                    <i style="color: #ff0000;" onclick="return confirm('Do you want to delete ?')" class="m-r-5 mdi mdi-border-color" ></i>Delete</a><br>
+                 
+                  <a class="text-danger  delete" style="color: red" onclick="return confirm('Do you want to delete ?')" href="/admin/deleteProduct?id=<%= product[i-1]._id %>">
+                    <i style="color: #ff0000;"  class="m-r-5 mdi mdi-border-color"></i>Delete</a><br>
                 </td>
-
-                <!-- model bootstrap -->
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete
-                          The Item ?</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                      </div>
-                      <div class="modal-body"> Are you sure you want to delete the
-                        item : <strong>
-                          <p>
-                            <%= product[i-1].name %>
-                          </p>
-                        </strong> </div>
-                      <div class="modal-footer"> <button type="button" class="btn btn-secondary delete" data-dismiss="modal">Close</button> <a href="/admin/delete-products?id=<%= product[i-1]._id %>" type="button" class="btn btn-danger">Delete Item</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </tr>
               <% } %>
               <% }else { %>
@@ -121,49 +99,6 @@
     </div>
 
 
-
-    <script>
-      $(".delete").on("click", function(e) {
-        e.preventDefault()
-        var self = $(this)
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              location.href = self.attr('href')
-            )
-          }
-        })
-      })
-    </script>
-    <script>
-      $(".show").on("click", function(e) {
-        e.preventDefault()
-        var self = $(this)
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              location.href = self.attr('href')
-            )
-          }
-        })
-      })
-    </script>
 
 
 
