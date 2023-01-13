@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://nandunsb99:Nandana@cluster0.vprjlwa.mongodb.net/minipjct_Database").then(()=>{
+require('dotenv').config();
+mongoose.connect(process.env.DBURL).then(()=>{
 console.log("connected to DB");
 // return callback();
 }).catch((err)=>{

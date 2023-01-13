@@ -595,7 +595,7 @@ const verifyOtp = async (req, res) => {
 const sendMessage = function (mobile, res) {
     let randomOTP = Math.floor(Math.random() * 10000)
     var options = {
-        authorization: "MSOj0bTnaP8phCARmWqtzkgEV4ZN2Ff9eUxXI7iJQ5HcDBKsL1vYiamnRcMxrsjDJboyFEXl0Sk37pZq",
+        authorization: process.env.API_KEY,
         message: `your OTP verification code is ${randomOTP}`,
         numbers: [mobile]
     }
@@ -844,7 +844,7 @@ const razorpayCheckout = async (req, res) => {
     userSession = req.session
     const userData = await User.findById({ _id: userSession.userId })
     const completeUser = await userData.populate('cart.item.productId')
-    var instance = new Razorpay({ key_id: 'rzp_test_JsWAF5zQlTrjuV', key_secret: 'gERCxgjTf4uyZQtjb952ydzb' })
+    var instance = new Razorpay({ key_id: process.env.key_id, key_secret: process.env.key_secret })
     console.log(req.body);
     console.log(completeUser.cart.totalPrice);
     let order = await instance.orders.create({
