@@ -36,6 +36,8 @@ user_route.get('/delete-wishlist',userControllers.deleteWishlist)
 user_route.get('/addToCart', userMiddleware.isLogin, userControllers.addToCart);
 user_route.get('/delete-cart',userControllers.deleteCart)
 
+user_route.post('/changeProductQty', userControllers.changeProductQty)
+
 user_route.get('/loadCategoryShop', userControllers.loadCategoryShop)
 
 user_route.get('/checkout', userControllers.loadCheckout)

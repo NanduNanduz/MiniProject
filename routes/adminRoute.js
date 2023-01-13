@@ -15,9 +15,9 @@ admin_route.set('views', './views/admin');
 
 const adminController = require("../controllers/adminController");
 
-admin_route.get('/',adminMiddleware.isLogout, adminController.loadLogin)
+
 // admin_route.get('/login',adminMiddleware.isLogout, adminController.loadLogin)
-// admin_route.get('/dashboard', adminMiddleware.isLogin, adminController.loadDashboard)
+//  admin_route.get('/dashboard', adminMiddleware.isLogin, adminController.loadDashboard)
 
 admin_route.get('/dashboard', adminMiddleware.isLogin, adminController.loadHome)
 
@@ -70,9 +70,9 @@ admin_route.get('/delete-offer',adminController.deleteOffer)
 
 
 
-
+admin_route.get('/',adminMiddleware.isLogout, adminController.loadLogin)
 admin_route.post('/', adminController.verifyLogin);
-admin_route.post('/login', adminController.verifyLogin);
+// admin_route.post('/login', adminController.verifyLogin);
 
 admin_route.get('/logout',adminMiddleware.isLogin, adminController.logout)
 

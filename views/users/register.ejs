@@ -1,133 +1,74 @@
-<%- include('../partials/userHeader.ejs') %>
-  <section class="vh-100 p-t-30" style="background-color:white;">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-xl-10">
-          <div class="card" style="border-radius: 1rem;">
-            <div class="row g-0">
-              <div class="col-md-6 col-lg-5 d-none d-md-block">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
-                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
-              </div>
-              <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                <div class="card-body p-4 p-lg-5 text-black">
-                  <% if(typeof message !=='undefined' ){ %>
-                    <h4 style="color: red;">
-                      <%= message %>
-                    </h4>
-                    <% } %>
+<%- include('../partials/userHeader',{count:count}) %>
 
-                      <form method="post" onsubmit="return validation()">
+<section class="vh-100 p-t-30" style="background-color:white;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <% if(typeof message !=='undefined' ){ %>
+                <h4 style="color: red;">
+                  <%= message %>
+                </h4>
+                <% } %>
+
+                <form action="/register" method="post" onsubmit="return validation()" enctype="application/x-www-form-urlencoded">
 
 
-                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Create an account</h5>
-
-                        <!-- <div class="form-outline mb-4">
-                        <input type="text"   id="name"  name="name" class="form-control form-control-lg" />
-                        <label class="form-label" for="form2Example17">Username</label>
-                        <span id="usererror" class="text-danger fond-weight-bold"></span>
-                      </div> -->
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Create an account</h5>
 
 
 
-                        <div class="form-outline mb-4">
-                          <input type="text" id="username" name="name" class="form-control form-control-lg"
-                            placeholder="Enter name">
-                          <span id="usererror" class="text-danger fond-weight-bold"></span>
-                        </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="username" name="name" class="form-control form-control-lg" placeholder="Enter name">
+                    <span id="usererror" class="text-danger fond-weight-bold"></span>
+                  </div>
 
 
-
-                        <!-- <div class="form-outline mb-4">
-                        <input type="text" id="email"  name="email" class="form-control form-control-lg" />
-                        <label class="form-label" for="form2Example17">Email</label>
-                        <span id="emailerror" class="text-danger fond-weight-bold"></span>
-                      </div> -->
+                  <div class="form-outline mb-4">
+                    <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Enter Email">
+                    <span id="emailerror" class="text-danger fond-weight-bold"></span>
+                  </div>
 
 
-                        <div class="form-outline mb-4">
-                          <input type="email" id="email" name="email" class="form-control form-control-lg"
-                            placeholder="Enter Email">
-                          <span id="emailerror" class="text-danger fond-weight-bold"></span>
-                        </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="mobile" name="mobile" class="form-control form-control-lg" placeholder="Enter mobile number">
+                    <span id="mobileerror" class="text-danger fond-weight-bold"></span>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Enter password">
+                    <span id="passworderror" class="text-danger fond-weight-bold"></span>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" name="cpassword" id="cpassword" class="form-control form-control-lg" placeholder="Confirm password">
+                    <span id="cpassworderror" class="text-danger fond-weight-bold"></span>
+                  </div>
 
 
-
-                        <!-- <div class="form-outline mb-4">
-                        <input type="text" id="mobile" name="mobile" class="form-control form-control-lg" />
-                        <label class="form-label" for="form2Example17">Mobile</label>
-                        <span id="mobileerror" class="text-danger fond-weight-bold"></span>
-
-                      </div> -->
+                  <div class="d-flex justify-content-center">
+                    <input type="submit" class="btn btn-secondary btn-block btn-lg gradient-custom-4 text-body">
+                  </div>
 
 
-                        <div class="form-outline mb-4">
-                          <input type="text" id="mobile" name="mobile" class="form-control form-control-lg"
-                            placeholder="Enter mobile number">
-                          <span id="mobileerror" class="text-danger fond-weight-bold"></span>
-                        </div>
-
-
-
-                        <!-- <div class="form-outline mb-4">
-                        <input type="password" id="password" name="password" class="form-control form-control-lg"/>
-                        <label class="form-label" for="form2Example27">Password</label>
-                        <span id="passworderror" class="text-danger fond-weight-bold"></span>
-                      </div> -->
-
-                        <div class="form-outline mb-4">
-                          <input type="password" id="password" name="password" class="form-control form-control-lg"
-                            placeholder="Enter password">
-                          <span id="passworderror" class="text-danger fond-weight-bold"></span>
-                        </div>
-
-
-
-
-                        <!-- <div class="form-outline mb-4">
-                        <input type="password"  id="cpassword" name="cpassword" class="form-control form-control-lg"  />
-                        <label class="form-label" for="form2Example27">Confirm Password</label>
-                        <span id="cpassworderror" class="text-danger fond-weight-bold"></span>--->
-
-
-
-                        <div class="form-outline mb-4">
-                          <input type="password" name="cpassword" id="cpassword" class="form-control form-control-lg"
-                            placeholder="Confirm password">
-                          <span id="cpassworderror" class="text-danger fond-weight-bold"></span>
-                        </div>
-
-
-
-
-
-                        <div class="d-flex justify-content-center">
-                          <input type="submit" class="btn btn-secondary btn-block btn-lg gradient-custom-4 text-body"
-                            name="">
-                        </div>
-
-
-
-                        <!-- <div class="d-flex justify-content-center">
-                        <button type="submit"
-                          class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                      </div> -->
-
-
-
-                        <p class="text-center text-muted mt-2 mb-0">Have already an account? <a href="/login"
-                            class="fw-bold text-body"><u>Login here</u></a></p>
-                        <form>
-                </div>
+                  <p class="text-center text-muted mt-2 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <script type="text/javascript">
+<!-- <script type="text/javascript">
     function validation() {
 
       var username = document.getElementById("name").value;
@@ -226,5 +167,5 @@
   //   return true;
   // }
 
-  </script>
-  <%- include('../partials/userFooter.ejs') %>
+  </script> -->
+<%- include('../partials/userFooter.ejs') %>

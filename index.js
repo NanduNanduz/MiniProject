@@ -1,5 +1,11 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://127.0.0.1:27017/minipjct_Database")
+mongoose.connect("mongodb+srv://nandunsb99:Nandana@cluster0.vprjlwa.mongodb.net/minipjct_Database").then(()=>{
+console.log("connected to DB");
+// return callback();
+}).catch((err)=>{
+    console.log(err);
+    // return callback(err)
+})
 
 const nocache = require('nocache')
 

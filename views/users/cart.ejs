@@ -55,23 +55,27 @@
 					  </div>
 					</td>
 					<td class="column-2"><%= key.productId.name %></td>
-					<td class="column-3">₹. <%= key.productId.price %></td>
+					<td class="column-3" >₹. <%= key.productId.price %></td>
 					<td class="column-4">
 	  
-					  <div class="wrap-num-product flex-w m-l-auto m-r-0">
+					  <!-- <div class="wrap-num-product flex-w m-l-auto m-r-0">
 						<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 						  <i class="fs-16 zmdi zmdi-minus"></i>
 						</div>
+						
+								value="
 						<input class="mtext-104 cl3 txt-center num-product" type="next" name="num-product1" value="<%= key.Qty %>">
 						<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 						  <i class="fs-16 zmdi zmdi-plus"></i>
+						</div> -->
+						<div class="input-group mb-3">
+							<input type="hidden" id="productId"
+								value="<%= key.productId._id %>">
+							<input type="number" name="quantity" size="1"
+								class="quantity text-center input-number mr-2 qty m-auto border-0"
+								value="<%= key.Qty %>" min="1" max="10">
 						</div>
-	  
-						<!--                                             
-												  <td>
-													  <%= key.Qty %>
-												  </td> -->
-					<td class="column-5">
+					<td class="column-5" id="sellingPrice">
 					  <%= key.productId.price* key.Qty%>
 					</td>
 					<td class="nk-product-cart-remove">
@@ -128,7 +132,7 @@
 			  </div>
 	  
 			  <div class="size-209">
-				<span class="mtext-110 cl2">
+				<span class="mtext-110 cl2" id="total">
 				  <% if(id){ %>
 				  ₹. <%= cartProducts.totalPrice %>
 				  <% } %>
@@ -226,7 +230,28 @@
 <!-- </form> -->
 </div>
 
-
+<script>
+	const qty = document.querySelectorAll('.qty')
+	const qtyHandler = async (e) => {
+		try {
+			const productId = e.target.parentElement.children[0].value
+			const data = { qty: e.target.value }
+			const response = await fetch(`/changeProductQty?id=${productId}`, {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
+			})
+			const value = await response.json()
+			document.querySelector('#sellingPrice').innerText = value.totalPrice
+			document.querySelector('#total').innerText = value.price * e.target.value
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+	qty.forEach(q => {
+		q.addEventListener('change', qtyHandler)
+	})
+</script>
 
 
 <%- include('../partials/userFooter.ejs') %>

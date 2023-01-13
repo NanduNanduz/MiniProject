@@ -108,12 +108,14 @@ const insertUser = async (req, res) => {
     try {
         if (req.body.password == req.body.cpassword) {
             if (!alreadyExistingusername && !alreadyExistingmobile) {
+                console.log(typeof(req.body.email));
+                console.log('hii mail');
                 const user = new User({
-                    name: req.body.name,
-                    email: req.body.email,
-                    mobile: req.body.mobile,
-                    password: req.body.password,
-                    cpassword: req.body.cpassword,
+                    name:req.body.name,
+                    email:req.body.email,
+                    mobile:req.body.mobile,
+                    password:req.body.password,
+                    cpassword:req.body.cpassword,
                     is_admin: 0,
                     is_blocked: 0
                 });
@@ -125,20 +127,21 @@ const insertUser = async (req, res) => {
                     res.redirect('/verifyOtp')
                 }
                 else {
-                    res.render('register', {isLoggedin, message: "registration failed",count: 0 })
+                    res.render('register', { message: "registration failed",count: 0 })
                 }
             } else if (alreadyExistingusername) {
-                res.render('register', {isLoggedin, message: "Username Already Exist",count: 0 })
+                res.render('register', { message: "Username Already Exist",count: 0 })
 
             } else {
-                res.render('register', {isLoggedin, message: "Mobile Number Already Exist" ,count: 0})
+                res.render('register', { message: "Mobile Number Already Exist" ,count: 0})
 
             }
         } else {
-            res.render('register', { isLoggedin,message: "Password Mismatch",count: 0 })
+            res.render('register', {message: "Password Mismatch",count: 0 })
 
         }
     } catch (error) {
+        console.log("haii error");
         console.log(error)
     }
 }
@@ -187,14 +190,13 @@ const loadShop = async (req, res) => {
     userSession = req.session
     console.log("loadShop")
     try {
-        const productData = await Product.find()
+        const productData = await Product.find({isAvailable:1})
         if (userSession.userId) {
             const userData = await User.findById({ _id: userSession.userId })
             res.render('shop', { isLoggedin, product: productData, count: userData.cart.totalqty, id: userSession.userId })
             console.log(productData)
         } else {
             res.render('shop', { isLoggedin, product: productData, id: userSession.userId, count: 0 })
-
         }
     }
     catch (error) {
@@ -247,6 +249,27 @@ const loadProductDetails = async (req, res) => {
     }
 }
 
+const changeProductQty = async (req, res) => {
+    try {
+      userSession = req.session
+      const id = req.query.id
+      const userData = await User.findById({ _id: userSession.userId })
+      const foundProduct = userData.cart.item.findIndex((x) => x.productId == id)
+      const qty = { a: parseInt(req.body.qty) }
+      userData.cart.item[foundProduct].qty = qty.a
+      const price = userData.cart.item[foundProduct].price
+      userData.cart.totalPrice = 0
+      const totalPrice = userData.cart.item.reduce((acc, curr) => {
+        return acc + curr.price * curr.qty
+      }, 0)
+      userData.cart.totalPrice = totalPrice
+      await userData.save()
+      res.json({ totalPrice, price })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
 
 const loadCart = async (req, res) => {
     try {
@@ -262,6 +285,7 @@ const loadCart = async (req, res) => {
                 userSession.couponTotal = userData.cart.totalPrice;
             }
             console.log(typeof(completeUser.cart.item))
+            console.log(couponTotal)
             res.render('cart', { isLoggedin, id: userSession.userId, cartProducts: completeUser.cart, offer: userSession.offer, count: userData.cart.totalqty, couponTotal: userSession.couponTotal })
         
         } else {
@@ -487,11 +511,6 @@ const viewContact = async (req, res) => {
 //   }
 
 
-
-
-
-
-
 const loadCheckout = async (req, res) => {
     try {
         userSession = req.session
@@ -550,7 +569,7 @@ const loadOtp = async (req, res) => {
     const otp = sendMessage(userData.mobile, res)
     newOtp = otp
     console.log('otp:', otp);
-    res.render('../otpVerify', { otp: otp, user: newUser })
+    res.render('otpVerify', {isLoggedin, otp: otp, user: newUser,count:0 })
 }
 
 const verifyOtp = async (req, res) => {
@@ -564,7 +583,7 @@ const verifyOtp = async (req, res) => {
                 res.redirect('/login')
             }
         } else {
-            res.render('../otpVerify', { message: "Invalid OTP" })
+            res.render('otpVerify', {isLoggedin, message: "Invalid OTP" ,count:0})
         }
 
     } catch (error) {
@@ -696,7 +715,7 @@ const viewOrder = async (req, res) => {
             const userData = await User.findById({ _id: userSession.userId })
             await orderData.populate('products.item.productId')
             // console.log(orderData.products.item);
-            res.render('viewOrder', { isLoggedin, order: orderData, user: userData, count: userData.cart.totalqty, })
+            res.render('viewOrder', { isLoggedin, offer: userSession.offer,order: orderData, user: userData, count: userData.cart.totalqty, })
         } else {
             res.redirect('/login')
         }
@@ -1027,6 +1046,7 @@ module.exports = {
     userDashboard,
     editUser,
     updateUser,
+    changeProductQty,
     razorpayCheckout,
     currentBanner,
     addCoupon,

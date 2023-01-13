@@ -5,6 +5,7 @@ const Order = require('../models/ordersModel');
 const Category = require('../models/categoryModel');
 const { find } = require('../models/productsModel');
 const Banner = require('../models/bannerModel');
+const ObjectId = require("mongodb").ObjectId;
 const Offer = require('../models/offerModel')
 
 
@@ -55,6 +56,112 @@ const loadHome = async (req, res) => {
         console.log("error")
     }
 }
+
+
+
+
+// const loadHome = async (req, res) => {
+//     try {
+//       console.log("admin");
+//       adminSession = req.session;
+//       if (isAdminLoggedin) {
+//         const productData = await Product.find();
+//         const userData = await User.find({ is_admin: 0 });
+//         const categoryData = await Category.find();
+//         console.log(productData);
+//         const categoryArray = [];
+//         const orderCount = [];
+//         for (let key of categoryData) {
+//           categoryArray.push(key.name);
+//           orderCount.push(0);
+//         }
+//         const completeOrder = [];
+//         const orderData = await Order.find();
+//         const orderItems = orderData.map((item) => item.products.item);
+//         let productIds = [];
+//         orderItems.forEach((orderItem) => {
+//           orderItem.forEach((item) => {
+//             productIds.push(item.productId.toString());
+//           });
+//         });
+  
+//         const s = [...new Set(productIds)];
+//         const uniqueProductObjs = s.map((id) => {
+//           return { id: ObjectId(id), qty: 0 };
+//         });
+//         orderItems.forEach((orderItem) => {
+//           orderItem.forEach((item) => {
+//             uniqueProductObjs.forEach((idObj) => {
+//               if (item.productId.toString() === idObj.id.toString()) {
+//                 idObj.qty += item.qty;
+//               }
+//             });
+//           });
+//         });
+  
+//         for (let key of orderData) {
+//           const append = await key.populate("products.item.productId");
+//           completeOrder.push(append);
+//         }
+  
+//         completeOrder.forEach((order) => {
+//           order.products.item.forEach((it) => {
+//             uniqueProductObjs.forEach((obj) => {
+//               if (it.productId._id.toString() === obj.id.toString()) {
+//                 uniqueProductObjs.forEach((ss) => {
+//                   if (ss.id.toString() !== it.productId._id.toString()) {
+//                     obj.name = it.productId.name;
+//                   }
+//                 });
+//               }
+//             });
+//           });
+//         });
+//         const salesCount = [];
+//         const productName = productData.map((product) => product.name);
+//         for (let i = 0; i < productName.length; i++) {
+//           for (let j = 0; j < uniqueProductObjs.length; j++) {
+//             if (productName[i] === uniqueProductObjs[j].name) {
+//               salesCount.push(uniqueProductObjs[j].qty);
+//             } else {
+//               salesCount.push(0);
+//             }
+//           }
+//         }
+  
+//         console.log(salesCount);
+//         console.log(productName);
+//         for (let i = 0; i < completeOrder.length; i++) {
+//           for (let j = 0; j < completeOrder[i].products.item.length; j++) {
+//             const categoryData = completeOrder[i].products.item[j].productId.category;
+//             const isExisting = categoryArray.findIndex(category => {
+//               return category === categoryData
+//             });
+//             orderCount[isExisting]++;
+//             console.log(categoryData);
+//             console.log(orderCount);
+//           }
+//         }
+  
+//         if (productName && salesCount) {
+//           res.render("home", {
+//             products: productData,
+//             users: userData,
+//             category: categoryArray,
+//             count: orderCount,
+//             pname: productName,
+//             pcount: salesCount,
+//           });
+//         }
+//       }
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
+
+
+
+
 
 
 const verifyLogin = async (req, res) => {
@@ -555,6 +662,81 @@ const deleteOffer = async (req, res, next) => {
 
 
 
+
+// const loadHome= async (req, res) => {
+//     try {
+//       adminSession = req.session
+//       if (isAdminLoggedin) {
+//         const productData = await Product.find()
+//         const userData = await User.find({ is_admin: 0 })
+//         const adminData = await User.findOne({is_admin:1})
+//         const categoryData = await Category.find()
+  
+//         const categoryArray = [];
+//         const orderCount = [];
+//         for(let key of categoryData){
+//           categoryArray.push(key.name)
+//           orderCount.push(0)
+//       }
+//       const completeorder = []
+//       const orderData =await Order.find()
+//       for(let key of orderData){
+//         const uppend = await key.populate('products.item.productId')
+//         completeorder.push(uppend)
+//     }
+  
+//     const productName =[];
+//     const salesCount = [];
+//     const productNames = await Product.find();
+//     for(let key of productNames){
+//       productName.push(key.name);
+//       salesCount.push(key.sales)
+//     }
+//     for(let i=0;i<completeorder.length;i++){
+//       for(let j = 0;j<completeorder[i].products.item.length;j++){
+//          const cataData = completeorder[i].products.item[j].productId.category
+//          const isExisting = categoryArray.findIndex(category => {
+//           return category === cataData
+//          })
+//          orderCount[isExisting]++
+//   }}
+  
+//     const showCount = await Order.find().count()
+//     const productCount = await Product.count()
+//     const usersCount = await User.count({is_admin:0})
+//     const totalCategory = await Category.count({isAvailable:1})
+  
+//   console.log(categoryArray);
+//   console.log(orderCount);
+  
+//       res.render('home', {
+//         users: userData,
+//         admin: adminData,
+//         product: productData,
+//         category: categoryArray,
+//         count: orderCount,
+//         pname:productName,
+//         pcount:salesCount,
+//         showCount,
+//         productCount,
+//         usersCount,
+//         totalCategory
+        
+//       });
+        
+//       } else {
+//         res.redirect('/login')
+//       }
+//     } catch (error) {
+//       console.log(error.message)
+//     }
+//   }
+
+
+
+
+
+
 // const block = async (req, res) => {
 //     console.log("query of block"+req.query.id)
 //     try {
@@ -608,6 +790,7 @@ module.exports = {
     adminLoadOffer,
     adminStoreOffer,
     deleteOffer,
+    // loadDashboard,
     logout
 
 
