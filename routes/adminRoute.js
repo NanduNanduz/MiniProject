@@ -74,6 +74,10 @@ admin_route.get('/',adminMiddleware.isLogout, adminController.loadLogin)
 admin_route.post('/', adminController.verifyLogin);
 // admin_route.post('/login', adminController.verifyLogin);
 
+
+admin_route.get('/chart', adminController.LoadChart)
+
+
 admin_route.get('/logout',adminMiddleware.isLogin, adminController.logout)
 
 

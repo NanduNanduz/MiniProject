@@ -1,0 +1,102 @@
+
+<%- include('../partials/adminHeader.ejs') %>
+
+
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card">
+                <canvas id="myChart"></canvas>
+                <input type="hidden" value="<%=pname %>" id="pname" />
+                <input type="hidden" value="<%=pcount%>" id="pcount" />
+              </div>
+
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+              <script>
+                const ctx = document.getElementById("myChart");
+                const name = document.getElementById("pname");
+                const count = document.getElementById("pcount");
+                const pnames = name.value.split(",");
+                const pcounts = count.value.split(",");
+
+                new Chart(ctx, {
+                  type: "pie",
+                  data: {
+                    labels: pnames,
+                    datasets: [
+                      {
+                        label: "sales",
+                        data: pcounts,
+                        borderWidth: 1,
+                      },
+                    ],
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                      },
+                    },
+                  },
+                });
+              </script>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <canvas id="myAnotherChart"></canvas>
+                <input type="hidden" value="<%=genre %>" id="genre" />
+                <input type="hidden" value="<%=count%>" id="count" />
+              </div>
+
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+              <script>
+                const cty = document.getElementById("myAnotherChart");
+                const catname = document.getElementById("genre");
+                const catcount = document.getElementById("count");
+                const catnames = catname.value.split(",");
+                const catcounts = catcount.value.split(",");
+
+                new Chart(cty, {
+                  type: "bar",
+                  data: {
+                    labels: catnames,
+                    datasets: [
+                      {
+                        label: "sales",
+                        data: catcounts,
+                        borderWidth: 1,
+                      },
+                    ],
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                      },
+                    },
+                  },
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+

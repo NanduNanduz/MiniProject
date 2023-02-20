@@ -1013,9 +1013,6 @@ const returnProduct = async (req, res) => {
 
 
 
-
-
-
 module.exports = {
     loginLoad,
     loadRegister,
@@ -1054,7 +1051,5 @@ module.exports = {
     returnProduct,
     viewAbout,
     viewContact
-
-
 
 }
